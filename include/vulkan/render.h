@@ -67,6 +67,8 @@ class Render {
         std::vector<VkFence> imagesInFlight;
         size_t currentFrame = 0;
 
+        bool framebufferResized = false;
+
         VkQueue graphicQueue;
         VkQueue presentQueue;
         VkQueue computeQueue;
@@ -82,11 +84,13 @@ class Render {
 
         std::vector<const char*> deviceExtensions = {};
 
+        static void framebufferResizeCallback(GLFWwindow*, int, int);
+
         void CreateWindow();
         void CreateInstance();
         void CreateSurface();
         void CreateDevice();
-        void CreateQueues();
+        void CreateLogicalDevice();
         void CreateSwapChain();
         void CreateImageView();
         void CreateRenderPass();
@@ -96,6 +100,12 @@ class Render {
         void CreateCommandBuffers();
         void CreateSyncObjects();
         void DrawFrame();
+
+        void SetupDebugMessenger();
+
+        void Cleanup();
+        void CleanupSwapChain();
+        void RecreateSwapChain();
 
         bool checkValidationLayerSupport();
         std::vector<const char*> getRequiredExtensions();
@@ -110,6 +120,7 @@ class Render {
 
     public:
         Render();
+        ~Render();
 
         int OpenWindow();
         int CloseWindow();
