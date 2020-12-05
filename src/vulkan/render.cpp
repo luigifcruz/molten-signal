@@ -1,5 +1,7 @@
 #include "vulkan/render.h"
-#include <vulkan/vulkan_core.h>
+
+#include "triangle.vert.h"
+#include "triangle.frag.h"
 
 namespace MoltenSig::Vulkan {
 
@@ -300,7 +302,7 @@ void Render::CreateLogicalDevice() {
     }
 
     VkPhysicalDeviceFeatures deviceFeatures{};
-    
+
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 
@@ -407,8 +409,10 @@ void Render::CreateImageView() {
 }
 
 void Render::CreateGraphicsPipeline() {
-    VkShaderModule vertShaderModule = Tools::LoadShaderFromFile("/home/luigi/Sandbox/kimera/src/render/shaders/vert.spv", device);
-    VkShaderModule fragShaderModule = Tools::LoadShaderFromFile("/home/luigi/Sandbox/kimera/src/render/shaders/frag.spv", device);
+    VkShaderModule vertShaderModule = Tools::LoadShader(
+        VULKAN_SHADERS_TRIANGLE_VERT, sizeof(VULKAN_SHADERS_TRIANGLE_VERT), device);
+    VkShaderModule fragShaderModule = Tools::LoadShader(
+        VULKAN_SHADERS_TRIANGLE_FRAG, sizeof(VULKAN_SHADERS_TRIANGLE_FRAG), device);
 
     VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
     vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;

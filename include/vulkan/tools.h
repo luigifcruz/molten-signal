@@ -24,7 +24,7 @@ namespace MoltenSig::Vulkan {
 class Tools {
 public:
     static VkShaderModule LoadShaderFromFile(const char*, VkDevice);
-    static VkShaderModule LoadShader(const char*, size_t, VkDevice);
+    static VkShaderModule LoadShader(const uint32_t*, size_t, VkDevice);
 };
 
 } // namespace MoltenSig::Vulkan
